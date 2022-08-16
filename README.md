@@ -10,6 +10,48 @@ https://github.com/mermaid-js/mermaid/blob/develop/docs/developer-docs/configura
 
 https://github.com/mermaid-js/mermaid/blob/develop/docs/usage.md
 
+
+## Simple Examples
+
+```mermaid
+sequenceDiagram
+    participant dotcom
+    participant iframe
+    participant viewscreen
+    dotcom->>iframe: loads html w/ iframe url
+    iframe->>viewscreen: request template
+    viewscreen->>iframe: html & javascript
+    iframe->>dotcom: iframe ready
+    dotcom->>iframe: set mermaid data on iframe
+    iframe->>iframe: render mermaid
+```
+
+
+```mermaid
+classDiagram
+    title Animal Diagram
+    Animal <|-- Duck
+    Animal <|-- Fish
+    Animal <|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck{
+	+String beakColor
+	+swim()
+	+quack()
+    }
+    class Fish{
+	-int sizeInFeet
+	-canEat()
+    }
+    class Zebra{
+	+bool is_wild
+	+run()
+    }
+```
+
 ## demos
 
 The demos in this repo are from the mermaid demos folder, with some fixes:
