@@ -20,14 +20,15 @@
     <li><a href="./dataflowchart.html">dataflowchart.html</a></li>
     <li><a href="./er.html">er.html</a></li>
     <li><a href="./flowchart.html">flowchart.html</a></li>
-    <li><a href="./gantt.html">gantt.html FAILS</a></li>
+    <li><a href="./gantt.html">gantt.html</a></li>
     <li><a href="./dataflowchart.html">dataflowchart.html</a></li>
     <li><a href="./journey.html">journey.html</a></li>
-    <li><a href="./requirements.html">requirements.html FAILS</a></li>
+    <li><a href="./requirements.html">requirements.html</a></li>
     <li><a href="./sequence.html">sequence.html</a></li>
     <li><a href="./state.html">state.html</a></li>
   </ul>
   <br>
+  Some of the above failed until the "title" and accDescription" fields were removed.  Found this related link: https://github.com/mermaid-js/mermaid/issues/2904
   <br>
   <hr />
   <div class="mermaid">
@@ -234,19 +235,20 @@ Enterprise_Boundary(b0, "BankBoundary0") {
 
   <hr />
 
+  <!-- title Key elements in Product X
+  accDescription This is a pie chart showing the key elements in Product X. -->
+
   <div class="mermaid">
     pie
-      title Key elements in Product X
-      accDescription This is a pie chart showing the key elements in Product X.
       "Calcium" : 42.96
       "Potassium" : 50.05
       "Magnesium" : 10.01
       "Iron" :  5
   </div>
 
+  <!-- title Airworks roadmap -->
   <div class="mermaid">
     gantt
-      title Airworks roadmap
       dateFormat YYYY-MM-DD
       axisFormat %m-%d %a
       excludes	weekends, 2021-10-01,2021-10-04,2021-10-05,2021-10-06,2021-10-07
@@ -678,9 +680,9 @@ Enterprise_Boundary(b0, "BankBoundary0") {
 
   <hr />
 
+  <!-- accDescription Hello friends -->
   <div class="mermaid">
     sequenceDiagram
-    accDescription Hello friends
     participant Alice
     participant Bob
     participant John as John<br />Second Line
@@ -894,9 +896,9 @@ Enterprise_Boundary(b0, "BankBoundary0") {
         }
   </div>
 
+  <!-- accDescription This is a state diagram showing one state -->
   <div class="mermaid">
     stateDiagram
-    accDescription This is a state diagram showing one state
     State1
   </div>
 

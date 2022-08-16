@@ -96,3 +96,7 @@ func main() {
 }
 
 ```
+
+## OPTIONS TO RUN LOCALLY - VS CODE LIVESERVER
+
+The VS Code Plugin "Live Server" by Ritwick Dey works to view mermaid pages.  Install and then use the command pallette to open a file.
