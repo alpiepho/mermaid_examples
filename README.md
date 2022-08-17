@@ -1,4 +1,4 @@
-# mermaid_examples
+# kdic_diagrams
 
 Several months ago I stumbled on a new feature that was added to GitHub Markdown, “mermaid.js”.  This is a JavaScript library that uses the d3.js library for data visibility.  Really cool stuff.  
 
@@ -52,17 +52,6 @@ classDiagram
     }
 ```
 
-## demos
-
-The demos in this repo are from the mermaid demos folder, with some fixes:
-
-- import mermaid.js from cdninstead of locally
-- add links in index.html for other examples
-- NOTE: some problems:
-- end of index.html fails
-- classchart.html fails
-
-
 ## OPTIONS TO RUN LOCALLY - PYTHON
 
 ```
@@ -100,3 +89,9 @@ func main() {
 ## OPTIONS TO RUN LOCALLY - VS CODE LIVESERVER
 
 The VS Code Plugin "Live Server" by Ritwick Dey works to view mermaid pages.  Install and then use the command pallette to open a file.
+
+
+## REFERENCES
+
+https://jojozhuang.github.io/tutorial/mermaid-cheat-sheet/
+
