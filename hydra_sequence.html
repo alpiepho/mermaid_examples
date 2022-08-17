@@ -22,41 +22,43 @@
 		title: Hydra 5-Minute Example Sequence Diagram
 		participant Admin as Hydra Admin<br />localhost:4445
 		participant Public as Hydra Public<br />localhost:4444
-		participant Client as Hydra Client<br />ie. KDI Auth Server
-		autonumber 10 1
-		par
-		Admin -->> Admin: start endpoint
-		Public -->> Public: start endpoint
-		end
-		Admin ->> Public: Hello Public, how are you?
-		Public-->>Client: How about you John?
-		Public--x Admin: I am good thanks!
-		Public-x Client: I am good thanks!
-		Note right of Client: John thinks a long<br />long time, so long<br />that the text does<br />not fit on a row.
-		Public-->Admin: Checking with John...
-		Note over Client:wrap: John looks like he's still thinking, so Public prods him a bit.
-		Public-x Client: Hey John - we're still waiting to know<br />how you're doing
-		Note over Client:nowrap: John's trying hard not to break his train of thought.
-		Public-x Client:wrap: John! Are you still debating about how you're doing? How long does it take??
-		Note over Client: After a few more moments, John<br />finally snaps out of it.
-		autonumber off
+		participant Client as Hydra Client<br />ie. KDI Auth Svr Backend
+		%% par Hydra startup (via Docker)
+		%% Admin -->> Admin: start endpoint
+		%% Public -->> Public: start endpoint
+		%% end
+		Client ->> Admin: create OAuth2 client <br />POST /clients
+		Note over Client:wrap: (one time, see note1)
+
+		Client ->> Public: get token grant <br />POST /oauth2/token
+		Note over Client:wrap: (see note2)
+
 		alt either this
-		Admin->>+Client: Yes
-		Client-->>-Admin: OK
+		Client ->> Admin: introspect token using Hydra <br />POST /oauth2/instrospect
+		Note over Client:wrap: (use Hydra to verify, see note3)
 		else or this
-		autonumber
-		Admin->>Client: No
-		else or this will happen
-		Admin->Client: Maybe
+
+		Client ->> Admin: get public keys <br />GET /.well-known/jwks.json
+		Note over Client:wrap: (get public keys and local verify, see note4)
 		end
-		autonumber 200
-		par this happens in parallel
-		Admin -->> Public: Parallel message 1
-		and
-		Admin -->> Client: Parallel message 2
-		end
+
+		
 	</div>
 
+	<h5>note1: Example Create Client:</h5>
+	<pre>
+	POST localhost:4445/clients
+	{
+		"client_id":"my-client",
+		"client_secret":"secret",
+		"created_at":"0001-01-01T00:00:00.000Z",
+		"grant_types":["client_credentials"],
+		"response_types":["code"],
+		"subject_type":"public",
+		"token_endpoint_auth_method":"client_secret_basic",
+		"updated_at":"0001-01-01T00:00:00.000Z"
+	}
+</pre>>
 	
 	<hr>
 	
@@ -106,6 +108,7 @@
 		mermaid.initialize({
 		  theme: 'base',  // base, forest, dark, default, neutral; see https://github.com/mermaid-js/mermaid/blob/develop/docs/theming.md
 		  // themeCSS: '.node rect { fill: red; }',
+		  // themeCSS: '.messageLine0[x1="635"] { stroke:red; }', // works, but an id would be better, see https://mermaid-js.github.io/mermaid/#/sequenceDiagram?id=styling
 		  logLevel: 3,
 		  securityLevel: 'loose',
 		  flowchart: { curve: 'basis' },
