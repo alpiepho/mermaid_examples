@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Mermaid Quick Test Page</title>
+	<title>Hydra 5-Minute Example Services Diagram</title>
 	<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
 	<style>
 		div.mermaid {
@@ -17,6 +17,50 @@
 <body>
 
 
+	<div class="mermaid">
+		sequenceDiagram
+		title: Hydra 5-Minute Example Sequence Diagram
+		participant Admin as Hydra Admin<br />localhost:4445
+		participant Public as Hydra Public<br />localhost:4444
+		participant Client as Hydra Client<br />ie. KDI Auth Svr Backend
+		%% par Hydra startup (via Docker)
+		%% Admin -->> Admin: start endpoint
+		%% Public -->> Public: start endpoint
+		%% end
+		Client ->> Admin: create OAuth2 client <br />POST /clients
+		Note over Client:wrap: (one time, see note1)
+
+		Client ->> Public: get token grant <br />POST /oauth2/token
+		Note over Client:wrap: (see note2)
+
+		alt either this
+		Client ->> Admin: introspect token using Hydra <br />POST /oauth2/instrospect
+		Note over Client:wrap: (use Hydra to verify, see note3)
+		else or this
+
+		Client ->> Public: get public keys <br />GET /.well-known/jwks.json
+		Note over Client:wrap: (get public keys and local verify, see note4)
+		end
+	</div>
+
+	<h5>note1: Example Create Client:</h5>
+	<pre>
+	POST localhost:4445/clients
+	{
+		"client_id":"my-client",
+		"client_secret":"secret",
+		"created_at":"0001-01-01T00:00:00.000Z",
+		"grant_types":["client_credentials"],
+		"response_types":["code"],
+		"subject_type":"public",
+		"token_endpoint_auth_method":"client_secret_basic",
+		"updated_at":"0001-01-01T00:00:00.000Z"
+	}
+</pre>>
+	
+	<hr>
+	
+	<!-- Original from sequence.html -->
 	<div class="mermaid">
 		sequenceDiagram
 		title: FancySequenceDiagram
@@ -60,8 +104,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 	<script>
 		mermaid.initialize({
-		  theme: 'forest',
+		  theme: 'base',  // base, forest, dark, default, neutral; see https://github.com/mermaid-js/mermaid/blob/develop/docs/theming.md
 		  // themeCSS: '.node rect { fill: red; }',
+		  // themeCSS: '.messageLine0[x1="635"] { stroke:red; }', // works, but an id would be better, see https://mermaid-js.github.io/mermaid/#/sequenceDiagram?id=styling
 		  logLevel: 3,
 		  securityLevel: 'loose',
 		  flowchart: { curve: 'basis' },
